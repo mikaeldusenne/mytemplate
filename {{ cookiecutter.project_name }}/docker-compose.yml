@@ -1,0 +1,35 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    networks:
+      - {{cookiecutter.project_name}}_network
+    container_name: "{{cookiecutter.project_name}}_mongo_docker"
+    env_file:
+     - ./mongo/.env
+    volumes:
+      - "./mongo/volume:/data/db"
+      - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - "{{cookiecutter.docker_mongo_port_1}}-{{cookiecutter.docker_mongo_port_2}}:27017-27019"
+  app:
+    depends_on: [mongo]
+    image: {{cookiecutter.project_name}}-flask
+    networks:
+      - {{cookiecutter.project_name}}_network
+    build:
+      context: "./backend"
+    env_file:
+      - ./mongo/.env
+      - ./backend/.env
+      - ./.env_prod
+    volumes:
+      - "./backend:/app/backend/"
+      - "./frontend/dist/dist:/app/backend/templates:ro"
+      - "./frontend/dist/dist/static:/app/backend/static:ro"
+    command: "python -m backend"
+
+
+networks:
+  {{cookiecutter.project_name}}_network:
+    driver: bridge

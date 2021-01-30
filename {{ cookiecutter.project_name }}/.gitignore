@@ -1,0 +1,41 @@
+.DS_Store
+node_modules
+dist
+.trash
+
+__pycache__
+*.log
+
+mongo/mongo-init.js
+mongo/volume
+
+.env*
+
+venv
+
+*.csv
+scratch.py
+scratch.mongo
+
+# local env files
+.env.local
+.env.*.local
+.env
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*~
+
+

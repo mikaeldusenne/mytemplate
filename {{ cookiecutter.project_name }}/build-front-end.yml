@@ -1,0 +1,6 @@
+version: '3'
+services:
+  vuecli:
+    command: npm run build
+    volumes:
+      - "./frontend/dist/:/app/dist"

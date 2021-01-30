@@ -1,0 +1,8 @@
+version: '3'
+services:
+  vuecli:
+    command: ["bash","update_script.sh"]
+    volumes:
+      - "./update_script.sh:/app/update_script.sh"
+      - "./frontend/package.json:/app/package.json"
+      - "./frontend/package-lock.json:/app/package-lock.json"
