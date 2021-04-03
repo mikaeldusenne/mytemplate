@@ -17,10 +17,10 @@ case "$CMD" in
         docker-compose -f front-end.yml -f build-front-end.yml up --abort-on-container-exit $@
         ;;
     lint*)
-        docker exec -it saturn_vuecli_1 npm run lint
+        docker exec -it {{ cookiecutter.project_name }}_vuecli_1 npm run lint
         ;;
     purge-db)
-        docker exec -it saturn_app_1 python -m backend.src.mock
+        docker exec -it {{ cookiecutter.project_name }}_app_1 python -m backend.src.mock
         ;;
     connect-db)
         . ./mongo/.env
