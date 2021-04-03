@@ -8,6 +8,7 @@ __pycache__
 
 mongo/mongo-init.js
 mongo/volume
+mongo/mongobackup/backups/
 
 .env*
 

@@ -5,7 +5,7 @@ services:
   nginx:
     depends_on: [app]
     networks:
-      - alorem_network
+      - {{cookiecutter.project_name}}_network
     image: nginx
     environment:
       - PROD=1
