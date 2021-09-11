@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-    {% raw %}{{ message }}{% endraw %}
+    <h1>{{cookiecutter.project_name}}</h1>
   </div>
 </template>
 
@@ -8,7 +8,6 @@
 <script>
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { NumType, CategoricalOptions, CategoricalValue, Variable } from "@/types";
-import { required, between, integer } from "vuelidate/lib/validators";
 import axios from 'axios'
 
 axios.defaults.baseURL = '{{ cookiecutter.root_url }}';
@@ -16,7 +15,6 @@ axios.defaults.baseURL = '{{ cookiecutter.root_url }}';
 @Component
 export default class Home extends Vue {
 
-  message = "Welcome Home"
   
 }
 </script>

@@ -6,6 +6,8 @@ dist
 __pycache__
 *.log
 
+.npm
+
 mongo/mongo-init.js
 mongo/volume
 mongo/mongobackup/backups/
@@ -40,3 +42,8 @@ pnpm-debug.log*
 *~
 
 
+mongo/dumps
+*.pkl
+*.bin
+aws_template
+.dbshell

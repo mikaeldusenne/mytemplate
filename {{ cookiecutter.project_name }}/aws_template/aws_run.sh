@@ -13,11 +13,11 @@ mv id_rsa_github ~/.ssh/id_rsa
 # mv id_rsa_github.pub $HOMEDIR/.ssh/id_rsa.pub
 # mv id_rsa_github $HOMEDIR/.ssh/id_rsa
 
-git clone git@github.com:halfcrunchy/saturn.git
+git clone $github_project
 
-mv mongo.env saturn/mongo/.env
+mv mongo.env {{cookiecutter.project_name}}/mongo/.env
 
-cd saturn
+cd {{cookiecutter.project_name}}
 
 git checkout dev
 
@@ -29,7 +29,6 @@ source .env
 cd ..
 
 ./run.sh build --build         | tee ../results/build.log
-(sleep 60 && ./run.sh purge-db | tee ../results/filldb.log) &
 ./run.sh prod                  | tee ../results/prod.log
 
 cp -Ri mongo/ ../results/mongo/

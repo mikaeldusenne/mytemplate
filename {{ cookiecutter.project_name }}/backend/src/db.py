@@ -4,7 +4,6 @@ import yaml
 from os import environ
 from pprint import pprint
 from dotenv import load_dotenv
-import pandas as pd
 
 from backend.src import helpers as h
 

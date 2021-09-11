@@ -6,6 +6,8 @@ Flask
 Flask-Cors
 Flask-Login
 Flask-Bcrypt
+flask_caching
+redis
 flask_wtf
 itsdangerous
 Jinja2

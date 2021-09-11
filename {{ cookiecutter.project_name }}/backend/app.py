@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify, redirect, flash, request, url_for, Response, Blueprint
 import flask
+from flask_caching import Cache
 import logging
 import json
 import numpy as np
@@ -12,6 +13,14 @@ import os
 from backend.src.pytypes import *
 import backend.src.helpers as h
 import backend.src.db as db
+
+cache = Cache(config={
+    # 'CACHE_TYPE': 'FileSystemCache', 'CACHE_DIR': '/.flask-cache', "CACHE_DEFAULT_TIMEOUT": 9999999
+    'CACHE_TYPE': 'RedisCache',
+    'CACHE_REDIS_URL': 'redis://redis',
+    'CACHE_REDIS_PORT': '6379',
+    "CACHE_DEFAULT_TIMEOUT": 9999999,
+})
 
 
 def logging_setup(path):
@@ -53,9 +62,12 @@ def health_check():
 def index(path):
     return render_template('index.html')
 
+root_url = os.path.join('/', "{{cookiecutter.root_url}}")
+static_url_path = os.path.join(root_url, "static")
 
-app = Flask(__name__, static_url_path="/{{cookiecutter.root_url}}/static")
-app.register_blueprint(flsk, url_prefix="{{cookiecutter.root_url}}")
+app = Flask(__name__, static_url_path=static_url_path)
+app.register_blueprint(flsk, url_prefix=root_url)
+cache.init_app(app)
 
 
 db.connect()

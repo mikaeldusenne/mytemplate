@@ -20,10 +20,12 @@ EOF
 MONGO_INIT_FILE=mongo-init.js
 
 # if the database was never initialized and the init script does not exist, create it
-if [[ ( ! -f "$MONGO_INIT_FILE" ) && ( ! -d 'mongo' ) ]]; then
+if [[ ( ! -d 'mongo' ) ]]; then
     echo "creating "$MONGO_INIT_FILE" ..."
     [ -z "$MONGO_INITDB_ROOT_USERNAME" ] && usage
     [ -z "$MONGO_INITDB_ROOT_PASSWORD" ] && usage
+    [ -z "$MONGO_INITDB_USER_USERNAME" ] && usage
+    [ -z "$MONGO_INITDB_USER_PASSWORD" ] && usage
     [ -z "$MONGO_INITDB_DATABASE" ] && usage
     [ -z "$MONGO_HOST" ] && usage
     
@@ -45,8 +47,8 @@ db.createUser(
 )
 
 db.createUser({
-    user: "$MONGO_INITDB_ADMIN_USERNAME",
-    pwd: "$MONGO_INITDB_ADMIN_PASSWORD",
+    user: "$MONGO_INITDB_USER_USERNAME",
+    pwd: "$MONGO_INITDB_USER_PASSWORD",
     roles: [
         {
             role: "userAdminAnyDatabase",
@@ -65,14 +67,5 @@ db.createUser({
 
 EOF
 
-    cat <<EOF > .env
-export MONGO_INITDB_ROOT_USERNAME=$MONGO_INITDB_ROOT_USERNAME
-export MONGO_INITDB_ROOT_PASSWORD=$MONGO_INITDB_ROOT_PASSWORD
-export MONGO_INITDB_ADMIN_USERNAME=$MONGO_INITDB_ADMIN_USERNAME
-export MONGO_INITDB_ADMIN_PASSWORD=$MONGO_INITDB_ADMIN_PASSWORD
-export MONGO_INITDB_DATABASE=$MONGO_INITDB_DATABASE
-export MONGO_HOST=$MONGO_HOST
-
-EOF
     
 fi

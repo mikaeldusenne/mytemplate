@@ -1,53 +1,45 @@
 <template>
-  <div>
-    <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand href="#">
-        {{cookiecutter.project_name}}
-        <!-- <img class="logo" alt="{{cookiecutter.project_name}} logo" src="../assets/logo.png" /> -->
-      </b-navbar-brand>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">>
+    <a class="navbar-brand" href="/{{cookiecutter.root_url}}">
+      {{cookiecutter.project_name}}
+    </a>
 
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item to="/">/</b-nav-item>
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav class="ml-auto">
+        <b-nav-item to="/about">About</b-nav-item>
+        <b-navbar-nav v-if="showLogin && !getId">
+          <b-nav-item to="/login">Connexion</b-nav-item>
+          <b-nav-item to="/register">Inscription</b-nav-item>
+        </b-navbar-nav>
+        <b-navbar-nav v-else-if="showLogin">
+          <b-nav-item to="/profile">
+            <font-awesome-icon icon="user" />
+            {% raw %}{{ getId }}{% endraw %}
+          </b-nav-item>
+          <b-nav-item to="#" v-if="getId" v-on:click="logout()" href="#">
+            logout
+          </b-nav-item>
+          
+          <b-nav-item-dropdown right>
+            <!-- Using 'button-content' slot -->
+            <template v-slot:button-content>
+              <em>User</em>
+            </template>
+            <b-dropdown-item href="#">Profil</b-dropdown-item>
+            <b-dropdown-item href="#">
+              <b-nav-item to="#" v-if="getId" v-on:click="logout()" href="#">
+                Déconnexion
+              </b-nav-item>
+            </b-dropdown-item>
+          </b-nav-item-dropdown>
+          <b-avatar text=""></b-avatar>
         </b-navbar-nav>
 
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/about">About</b-nav-item>
-          <b-navbar-nav v-if="! getId">
-            
-            <b-nav-item to="/login">Connexion</b-nav-item>
-            <b-nav-item to="/register">Inscription</b-nav-item>
-          </b-navbar-nav>
-          <b-navbar-nav v-else>
-            <b-nav-item to="/profile">
-              <font-awesome-icon icon="user" />
-              {% raw %}{{ getId }}{% endraw %}
-            </b-nav-item>
-            <b-nav-item to="#" v-if="getId" v-on:click="logout()" href="#">
-              logout
-            </b-nav-item>
-            
-            <b-nav-item-dropdown right>
-              <!-- Using 'button-content' slot -->
-              <template v-slot:button-content>
-                <em>User</em>
-              </template>
-              <b-dropdown-item href="#">Profil</b-dropdown-item>
-              <b-dropdown-item href="#">
-                <b-nav-item to="#" v-if="getId" v-on:click="logout()" href="#">
-                  Déconnexion
-                </b-nav-item>
-              </b-dropdown-item>
-            </b-nav-item-dropdown>
-            <b-avatar text=""></b-avatar>
-          </b-navbar-nav>
-
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
-  </div>
+      </b-navbar-nav>
+    </b-collapse>
+  </nav>
 </template>
 
 <script lang="ts">
@@ -58,13 +50,8 @@ import { mapGetters } from 'vuex'
   computed: mapGetters(['getId'])
 })
 export default class NavBar extends Vue {
-  
+  showLogin = false;
 }
 </script>
 
-<style>
-img.logo {
-  max-height: 30px;
-  margin-left: -10px;
-}
-</style>
+<style scoped></style>

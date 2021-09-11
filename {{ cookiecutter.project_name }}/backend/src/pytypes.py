@@ -48,11 +48,6 @@ class V():
                 d[k] = v.toBsonDict()
             elif isinstance(v, Enum):
                 d[k] = {'_type': 'enum', 'data': str(v)}
-                # d[k] = v.value
-            names = [e for e in attr.fields(Project)]
-            if k in names and [e for e in attr.fields(Project) if e.name==k][0].type == float: # MongoDB does not appreciate to be fed ints instead of floats...
-                d[k] = float(k)
-
         return ({
             **{'_type': str(type(self).__name__)},
             **d

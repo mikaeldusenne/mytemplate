@@ -1,7 +1,7 @@
 version: '3'
 services:
   mongo:
-    image: mongo
+    image: mongo:bionic
     networks:
       - {{cookiecutter.project_name}}_network
     container_name: "{{cookiecutter.project_name}}_mongo_docker"
@@ -9,12 +9,17 @@ services:
      - ./mongo/.env
     volumes:
       - "./mongo/volume:/data/db"
+      - "./mongo/dumps:/dumps"
       - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-    ports:
-      - "{{cookiecutter.docker_mongo_port_1}}-{{cookiecutter.docker_mongo_port_2}}:27017-27019"
+      - "./mongo/.dbshell:/home/mongodb/.dbshell"
+  redis:
+    image: redis:latest
+    networks:
+      - {{cookiecutter.project_name}}_network
   app:
     depends_on: [mongo]
     image: {{cookiecutter.project_name}}-flask
+    container_name: "{{cookiecutter.project_name}}_app"
     networks:
       - {{cookiecutter.project_name}}_network
     build:
@@ -22,11 +27,10 @@ services:
     env_file:
       - ./mongo/.env
       - ./backend/.env
-      - ./.env_prod
     volumes:
       - "./backend:/app/backend/"
-      - "./frontend/dist/dist:/app/backend/templates:ro"
-      - "./frontend/dist/dist/static:/app/backend/static:ro"
+      - "./frontend/dist:/app/backend/templates:ro"
+      - "./frontend/dist/static:/app/backend/static:ro"
     command: "python -m backend"
 
 

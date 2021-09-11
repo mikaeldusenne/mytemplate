@@ -1,4 +1,4 @@
-# saturn
+# {{cookiecutter.project_name}}
 
 ## Project setup
 ```

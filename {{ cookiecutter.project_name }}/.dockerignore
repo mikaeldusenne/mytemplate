@@ -1,0 +1,5 @@
+frontend/node_modules
+frontend/.npm
+**/.mypy_cache
+mongo/volume
+

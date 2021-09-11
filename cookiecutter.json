@@ -1,13 +1,7 @@
 {
     "project_name": "project",
     "project_short_description": "",
-    "release_date": "2021-01-01",
-    "year": "2021",
-    "version": "0.0.1",
-    "docker_mongo_port_1": "27007",
-    "docker_mongo_port_2": "27009",
     "root_url": "/",
     "prod_port": "80",
-    "dev_front_end_port": "8080"
+    "dev_front_end_port": "8055"
 }
-
