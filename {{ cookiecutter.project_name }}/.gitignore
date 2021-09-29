@@ -20,6 +20,8 @@ venv
 scratch.py
 scratch.mongo
 
+# init_secrets.sh
+
 # local env files
 .env.local
 .env.*.local

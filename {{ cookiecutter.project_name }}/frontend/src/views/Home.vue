@@ -5,9 +5,8 @@
 </template>
 
 
-<script>
+<script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
-import { NumType, CategoricalOptions, CategoricalValue, Variable } from "@/types";
 import axios from 'axios'
 
 axios.defaults.baseURL = '{{ cookiecutter.root_url }}';

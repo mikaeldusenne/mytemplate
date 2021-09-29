@@ -1,11 +1,15 @@
 from itertools import islice, chain
 import traceback
 from math import floor, ceil
+import re
 import yaml
 import glob
 import os
 import logging
 import pickle
+
+def get_env_debug():
+    return int(environ.get("DEBUG", environ.get("PROD", 0))) == 1
 
 def clean_str(s):
     return (s.lower().strip()
@@ -127,3 +131,19 @@ def retry_with_delay(f, retry=5, retry_delay=1, delay_increment_factor=1.5, mess
             logging.error(f"{traceback.format_exc()}\n{message_prefix} failed after all retry attempts")
             raise ex from None
 
+def replace_all(l, e, f):
+    return [
+        e if f(ee) else ee
+        for ee in l
+    ]
+
+
+def prepare_user_input_search_regex(s):
+    print(s, re.escape(s))
+    return ".*" + ".*".join([
+        e for e in
+        "".join(replace_all(
+            s, ' ', lambda ee: not (ee.isalnum() or ee in " \\-_()")
+        )).strip()[:75].split(' ')
+        if len(e)
+    ]) + ".*"

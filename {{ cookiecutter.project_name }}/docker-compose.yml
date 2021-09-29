@@ -28,6 +28,7 @@ services:
       - ./mongo/.env
       - ./backend/.env
     volumes:
+      - "./logs/:/app/logs/"
       - "./backend:/app/backend/"
       - "./frontend/dist:/app/backend/templates:ro"
       - "./frontend/dist/static:/app/backend/static:ro"

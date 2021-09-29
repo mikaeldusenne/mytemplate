@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">>
-    <a class="navbar-brand" href="/{{cookiecutter.root_url}}">
+    <a class="navbar-brand" href="{{cookiecutter.root_url}}">
       {{cookiecutter.project_name}}
     </a>
 

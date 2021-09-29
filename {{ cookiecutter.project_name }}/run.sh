@@ -14,8 +14,10 @@ case "$CMD" in
     init)
         echo "setting secrets..."
         ./init_secrets.sh
-        echo "initializing frontend dependencies..."
+        echo "initializing frontend dependencies... please be patient..."
         docker-compose -f frontend.yml -f init_frontend.yml up --build --abort-on-container-exit $@
+        ./run.sh build --build
+        echo "done!"
         ;;
     update-frontend)
         docker-compose -f frontend.yml -f update_frontend.yml up --build --abort-on-container-exit $@

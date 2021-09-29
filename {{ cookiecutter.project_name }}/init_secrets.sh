@@ -17,7 +17,7 @@ echo "generating mongo user credentials..."
 cat <<EOF > .env
 export MONGO_PORT=27017
 export MONGO_INITDB_DATABASE=thedb
-export MONGO_HOST=wikimesh_mongo_docker
+export MONGO_HOST={{cookiecutter.project_name}}_mongo_docker
 
 export MONGO_INITDB_ROOT_USERNAME=mongo_root
 export MONGO_INITDB_ROOT_PASSWORD=$(pwd)
